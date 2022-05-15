@@ -161,7 +161,6 @@ jobs:
                  --query 'Reservations[*].Instances[*].PublicIpAddress' \
                  --filters "Name=tag:Project,Values=udacity" \
                  --output text >> inventory
-               exit 1
       - persist_to_workspace:
           root: ~/
           paths:
