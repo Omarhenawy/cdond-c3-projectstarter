@@ -153,8 +153,7 @@ jobs:
           name: Add back-end ip to ansible inventory
           command: |
               aws ec2 describe-instances \
-              \
-             --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:Project,Values=udacity" \
             --output text >> inventory
             exit 1
@@ -162,8 +161,9 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - destroy-environment 
-
+      - destroy-environment:
+          id: ${CIRCLE_WORKFLOW_ID:0:7}
+          when: on_fail
 #   configure-infrastructure:
 #     docker:
 #       # Docker image here that supports Ansible
