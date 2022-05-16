@@ -203,6 +203,7 @@ jobs:
           command: |
             cd backend
             npm install
+            npm audit
             npm run migrations > migrations_dump
       - run:
           name: Send migration results to memstash
