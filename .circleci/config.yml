@@ -200,14 +200,16 @@ jobs:
           keys: [backend-build]
       - run:
           name: Run migrations
+          working_directory: ./backend
           command: |
             cd backend
             npm install
             npm run migrations > migrations_dump
       - run:
           name: Send migration results to memstash
+          working_directory: ./backend
           command: |
-             if grep -q "has been executed successfully." migration_status
+             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
              then
                curl https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
              fi
