@@ -263,12 +263,11 @@ jobs:
           fingerprints: ["88:8c:a6:44:f6:b5:f8:05:3e:1e:9b:9f:a7:ca:b2:25"]
       - attach_workspace:
           at: .
-      -run: install tar
-          command: yum install -y tar gzip
-      - run:
+      -run:
           name: Install dependencies
           working_directory: /tmp
           command: |
+            yum install -y tar gzip
             apk add --update ansible curl rsync openssh nodejs npm
             ansible --version
             pip install awscli
