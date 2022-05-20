@@ -308,8 +308,9 @@ jobs:
            cat backend/.env
       - run:
           name: Backend smoke test.
+          working_directory: .\backend
           command: |
-            export API_URL="http://${BACKEND_IP}:3030"
+            API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
