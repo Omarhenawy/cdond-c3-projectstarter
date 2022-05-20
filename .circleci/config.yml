@@ -223,7 +223,8 @@ jobs:
                curl https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
                curl --insecure https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  
                echo "test"
-             fi -k https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+             fi
+              -k https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
                curl --insecure https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  
 
       - destroy-environment:
@@ -322,7 +323,7 @@ jobs:
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text)
             API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
+            echo ${API_URL}
             if curl "${API_URL}/api/status" | grep "ok"
             then
              return 0
