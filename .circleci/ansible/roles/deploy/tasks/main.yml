@@ -1,33 +1,29 @@
 ---
-  - name: "envrionment"
+  - name: "show remote environment"
     shell: env
 
-  - name: "copy backend files"
+  - name: "copy backend binaries"
     become: yes
     synchronize:
       src: ../../backend/dist
-      dest: /home/ubuntu/udapeople_prj
+      dest: /home/ubuntu/uda_app
       recursive: true
 
-  - name: "copy modules"
+  - name: "copy node_modules"
     become: yes
     synchronize:
       src: ../../backend/node_modules
-      dest: /home/ubuntu/udapeople_prj
+      dest: /home/ubuntu/uda_app
       recursive: true
-
-   - name: "install dependencies"
-    become: yes
-    command: npm install
 
   - name: "delete anything that might already be running"
     become: true
-    command: pm2 stop default
+    command: pm2 delete all
     ignore_errors: true
 
   - name: "start server"
     become: true
-    command: pm2 start npm -- start
+    command: pm2 start -f ./main.js
     args:
       chdir: /home/ubuntu/uda_app/dist
     environment:
