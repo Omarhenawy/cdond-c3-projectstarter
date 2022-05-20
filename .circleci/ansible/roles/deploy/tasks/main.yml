@@ -9,7 +9,7 @@
       dest: /home/ubuntu/udapeople_prj
       recursive: true
 
-  - name: "copy node_modules"
+  - name: "copy modules"
     become: yes
     synchronize:
       src: ../../backend/node_modules
