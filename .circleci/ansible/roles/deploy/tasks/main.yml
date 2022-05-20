@@ -16,14 +16,18 @@
       dest: /home/ubuntu/udapeople_prj
       recursive: true
 
+   - name: "install dependencies"
+    become: yes
+    command: npm install
+
   - name: "delete anything that might already be running"
     become: true
-    command: pm2 delete all
+    command: pm2 stop default
     ignore_errors: true
 
   - name: "start server"
     become: true
-    command: pm2 start -f ./main.js
+    command: pm2 start npm -- start
     args:
       chdir: /home/ubuntu/uda_app/dist
     environment:
