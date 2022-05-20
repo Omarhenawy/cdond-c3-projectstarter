@@ -213,6 +213,7 @@ jobs:
                curl https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
                curl --insecure https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/migration_${CIRCLE_WORKFLOW_ID:0:7}  
              fi
+             echo "${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
           id: ${CIRCLE_WORKFLOW_ID:0:7}
           when: on_fail     
