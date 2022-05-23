@@ -280,9 +280,14 @@ jobs:
           name: Install dependencies
           working_directory: /tmp
           command: |
-            apk add --update ansible curl rsync openssh nodejs npm
-            ansible --version
-            pip install awscli
+            sudo apt update
+            sudo apt install tar gzip unzip
+            sudo apt install nodejs npm
+            sudo apt install ansible
+            # install aws
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
       - run:
           name: Deploy backend
           command: |
