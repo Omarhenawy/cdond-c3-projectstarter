@@ -269,16 +269,15 @@ jobs:
                     
   deploy-backend:
     docker:
-      - image: python:3.9.0-alpine
+      - image: circleci/python
     steps:
       - checkout
       - add_ssh_keys:
           fingerprints: ["88:8c:a6:44:f6:b5:f8:05:3e:1e:9b:9f:a7:ca:b2:25"]
       - attach_workspace:
-          at: .
+          at: ~/ 
       - run:
           name: Install dependencies
-          working_directory: /tmp
           command: |
             sudo apt update
             sudo apt install tar gzip unzip
@@ -288,6 +287,20 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
+      - run:
+          name: create backend .env
+          command: |
+            touch backend/.env
+            echo TYPEORM_CONNECTION=postgres >> backend/.env
+            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> backend/.env
+            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> backend/.env
+            echo TYPEORM_MIGRATIONS=./src/migrations/*.ts >> backend/.env
+            echo TYPEORM_HOST=$TYPEORM_HOST >> backend/.env
+            echo TYPEORM_PORT=$TYPEORM_PORT >> backend/.env
+            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> backend/.env
+            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> backend/.env
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
+            cat backend/.env  # check vals
       - run:
           name: Deploy backend
           command: |
