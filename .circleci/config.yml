@@ -278,9 +278,7 @@ jobs:
           at: .
       - run:
           name: Install dependencies
-          working_directory: /tmp
           command: |
-               cd uda_app
                curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
                sudo apt install -y nodejs
                sudo npm install -g npm@latest
