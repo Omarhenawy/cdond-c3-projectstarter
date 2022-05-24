@@ -376,10 +376,9 @@ jobs:
 
       - run:
           name: get old stack workflow id
-          # working_directory: ./.circleci/files
-          # working_directory: .\backend
+          working_directory: ./.circleci/files
           command: |
-             OldWorkflowID=$(aws cloudformation \
+            OldWorkflowID=$(aws cloudformation \
               list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
               --no-paginate --output text)
             echo "${OldWorkflowID}"
