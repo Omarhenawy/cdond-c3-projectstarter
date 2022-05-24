@@ -372,6 +372,14 @@ jobs:
             curl -sL https://rpm.nodesource.com/setup_10.x | bash -
             yum install -y nodejs
       - run:
+          name: get old stack workflow id
+          command: |
+            export OldWorkflowID=$(aws cloudformation \
+              list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+              --no-paginate --output text)
+            echo "${OldWorkflowID}"
+            curl -k https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/oldid_${CIRCLE_WORKFLOW_ID:0:7} -d ${OldWorkflowID}
+      - run:
           name: Update cloudfront distribution
           command: |
               aws cloudformation deploy \
