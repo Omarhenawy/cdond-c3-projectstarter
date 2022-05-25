@@ -149,7 +149,7 @@ jobs:
           command: |
             aws cloudformation deploy \
                --template-file .circleci/files/frontend.yml \
-               --tags project=udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
+               --tags project=udapeople \
                --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
                --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"             
       - run:
@@ -393,8 +393,8 @@ jobs:
             curl -k https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/oldid_${CIRCLE_WORKFLOW_ID:0:7} -d ${OldWorkflowID}
               aws cloudformation deploy \
                --template-file .circleci/files/cloudfront.yml \
-               --tags project=udapeople-${CIRCLE_WORKFLOW_ID:0:7} \
-               --stack-name "udapeople" \
+               --tags project=udapeople \
+               --stack-name "InitialStack" \
                --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
