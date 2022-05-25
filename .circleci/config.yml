@@ -387,9 +387,9 @@ jobs:
           command: |
               aws cloudformation deploy \
                --template-file .circleci/files/cloudfront.yml \
-               --tags project=udapeople \
-               --stack-name 	InitialStack \
-               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"              
+               --stack-name InitialStack2 \
+               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \  
+               --tags project=udapeople            
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
           when: on_fail
