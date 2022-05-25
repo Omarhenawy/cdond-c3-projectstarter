@@ -392,10 +392,10 @@ jobs:
             echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
             curl -k https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/oldid_${CIRCLE_WORKFLOW_ID:0:7} -d ${OldWorkflowID}
               aws cloudformation deploy \
-               --template-file .circleci/files/cloudfront.yml \
-               --stack-name "InitialStack2-${CIRCLE_WORKFLOW_ID:0:7}" \
-               --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \  
-               --tags project=udapeople            
+                --template-file .circleci/files/cloudfront.yml \
+                --tags project=udapeople  \
+                --stack-name "InitialStack2-${CIRCLE_WORKFLOW_ID:0:7}" \ 
+                --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
           when: on_fail
