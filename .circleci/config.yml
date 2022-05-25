@@ -403,7 +403,6 @@ jobs:
       - run:
           name: Get old stack workflow id & Remove it
           command: |
-            # retrieve old workflow
             export OldWorkflowID=$(curl -k https://kvdb.io/4SL5Rn9AKifoPwzh7Si1dh/oldid_${CIRCLE_WORKFLOW_ID:0:7})            
             echo "Found Old Stack ID : ${OldWorkflowID}"
             echo "============= Cleaning UP Old Stack ============="
