@@ -46,6 +46,8 @@ jobs:
           command: |
             yum install -y tar gzip curl
             yum install -y python3 python3-pip
+       - attach_workspace:
+          at: .
        - run:
           name: Update cloudfront distribution
           command: |
