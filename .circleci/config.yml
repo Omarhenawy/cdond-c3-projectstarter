@@ -36,26 +36,7 @@ commands:
              npm run migration:revert
             fi
             
-jobs:
-  initial-stack:
-    docker:
-       - image: amazon/aws-cli
-    steps:
-       - run:
-          name: Install dependencies
-          command: |
-            yum install -y tar gzip curl
-            yum install -y python3 python3-pip
-       - attach_workspace:
-          at: .
-       - run:
-          name: Update cloudfront distribution
-          command: |
-              aws cloudformation deploy \
-               --template-file .circleci/files/cloudfront.yml \
-               --tags project=udapeople \
-               --stack-name "InitialStack-${CIRCLE_WORKFLOW_ID:0:7}" \
-               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"        
+jobs:      
 
   build-frontend:
     docker:
@@ -147,6 +128,24 @@ jobs:
              cd backend
              npm install
              npm audit fix --audit-level=critical --force
+      
+  initial-stack:
+    docker:
+       - image: amazon/aws-cli
+    steps:
+       - checkout
+       - run:
+          name: Install dependencies
+          command: |
+            yum install -y tar gzip curl
+       - run:
+          name: Update cloudfront distribution
+          command: |
+              aws cloudformation deploy \
+               --template-file .circleci/files/cloudfront.yml \
+               --tags project=udapeople \
+               --stack-name "InitialStack-${CIRCLE_WORKFLOW_ID:0:7}" \
+               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"  
 
   deploy-infrastructure:
     docker:
