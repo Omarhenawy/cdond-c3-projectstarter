@@ -444,7 +444,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - initial-stack
+      - initial-stack:
           filters:
             branches:
               only: [master]
