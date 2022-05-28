@@ -445,6 +445,10 @@ workflows:
   default:
     jobs:
       - initial-stack
+          filters:
+            branches:
+              only: [master]
+
       - build-frontend
       - build-backend
       - test-frontend:
