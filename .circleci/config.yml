@@ -37,6 +37,19 @@ commands:
             fi
             
 jobs:
+  initial-stack:
+    docker:
+       - image: amazon/aws-cli
+    steps:
+       - run:
+          name: Update cloudfront distribution
+          command: |
+              aws cloudformation deploy \
+               --template-file .circleci/files/cloudfront.yml \
+               --tags project=udapeople \
+               --stack-name "InitialStack-${CIRCLE_WORKFLOW_ID:0:7}" \
+               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"        
+
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -425,6 +438,7 @@ jobs:
 workflows:
   default:
     jobs:
+      - initial-stack
       - build-frontend
       - build-backend
       - test-frontend:
